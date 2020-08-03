@@ -4,7 +4,10 @@ var data= [];
 let Try = async (string)=>{
     let start = new Date();
     let url = `https://www.flipkart.com/search?q=${string.replace(/ /g,'%20')}&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off`;
-    let browser = await puppeteer.launch();
+    let browser = await puppeteer.launch({
+        headless: true,
+        args: ["--no-sandbox"]
+    });
     let page = await browser.newPage();
     await page.setViewport({
         width: 1920,
