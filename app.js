@@ -6,9 +6,6 @@ const flip = require('./scrap/flipkart');
 const bodyParser = require('body-parser');
 // const newdata= require('./data')
 
-var Data = [];
-
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine","ejs");
 const port = process.env.PORT || 3000; 
@@ -40,6 +37,7 @@ app.post('/',(req,res)=>{
 app.get('/search/:book_name',(req,res)=>{
     let string = req.params.book_name;
     let start = new Date();
+    var Data = [];
     (async()=>{
         let amazdata = amaz(string);
         await amazdata.then(data=>{
