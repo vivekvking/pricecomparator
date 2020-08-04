@@ -42,13 +42,19 @@ app.get('/search/:book_name',(req,res)=>{
         let amazdata = amaz(string);
         await amazdata.then(data=>{
             data.forEach(d=>Data.push(d));
+        }).catch(err=>{
+            console.log("Error occured in amazon data "+ err)
         })
+        
     })();
 
     (async()=>{
         let flipdata = flip(string);
         await flipdata.then(data=>{
             data.forEach(d=> Data.push(d));
+        }).catch(err=>{
+            console.log("Error occured in flipkart data " + err)
+            // res.redirect('/');
         })
         let newdata= sort(Data);
         // console.log(newdata)

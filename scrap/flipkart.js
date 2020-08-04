@@ -1,8 +1,9 @@
 const puppeteer = require('puppeteer');
 
-var data= [];
+
 let Try = async (string)=>{
     let start = new Date();
+    var data= [];
     let url = `https://www.flipkart.com/search?q=${string.replace(/ /g,'%20')}&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off`;
     let browser = await puppeteer.launch({
         headless: true,
@@ -16,7 +17,7 @@ let Try = async (string)=>{
     await page.goto(url,{waitUntil: "networkidle0"});
     data = await page.evaluate(()=> {
         let columns = document.querySelectorAll('._3O0U0u');
-        let data=[]
+        let data=[];
         let loop = 0;
         columns.forEach(column=>{
             let items = column.querySelectorAll('._3O0U0u > div');
