@@ -23,14 +23,28 @@ let Try = async (string)=>{
             let items = column.querySelectorAll('._3O0U0u > div');
             items.forEach(item=>{
                 if(loop<12){
-                    let data_id,href,img,title='',full_title,price='',rating='',no_of_rating='',language='',owner='flipkart';
+                    let data_id='',href='',img='',title='',full_title='',price='',rating='',no_of_rating='',language='',owner='flipkart';
                     data_id = item.getAttribute('data-id');
-                    href = `https://www.flipkart.com${item.querySelector('a.Zhf2z-').getAttribute('href')}`;
-                    img = item.querySelector('img._1Nyybr').getAttribute('src');
+                    if(item.querySelector('a.Zhf2z-')){
+                        href = `https://www.flipkart.com${item.querySelector('a.Zhf2z-').getAttribute('href')}`;
+                    }else if(item.querySelector('a._3dqZjq')){
+                        href = `https://www.flipkart.com${item.querySelector('a._3dqZjq').getAttribute('href')}`;
+                    }
+                    if(item.querySelector('img._1Nyybr')){
+                        img = item.querySelector('img._1Nyybr').getAttribute('src');
+                    }else if(item.querySelector('img._3togXc')){
+                        img = item.querySelector('img._3togXc').getAttribute('src');
+                    }
                     if(item.querySelector('a._2cLu-l')){
                         title = item.querySelector('a._2cLu-l').textContent;
+                    }else if(item.querySelector('div._2B_pmu')){
+                        title = `${item.querySelector('div._2B_pmu').textContent}`;
+                    }else if(item.querySelector('div._3wU53n')){
+                        title = `${item.querySelector('div._3wU53n').textContent}`;
                     }                    
-                    full_title = item.querySelector('a._2cLu-l').getAttribute('title');
+                    if(item.querySelector('a._2cLu-l')){
+                        full_title = item.querySelector('a._2cLu-l').getAttribute('title');
+                    }
                     if(item.querySelector('div._1vC4OE')){
                         price = item.querySelector('div._1vC4OE').textContent.replace(/₹/g,"").replace(/,/g,"");
                     }

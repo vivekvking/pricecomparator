@@ -4,6 +4,7 @@ const ejs = require('ejs')
 const amaz = require('./scrap/amazon')
 const flip = require('./scrap/flipkart'); 
 const bodyParser = require('body-parser');
+const chalk = require('chalk')
 // const newdata= require('./data')
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -38,31 +39,31 @@ app.get('/search/:book_name',(req,res)=>{
     let string = req.params.book_name;
     let start = new Date();
     var Data = [];
-    (async()=>{
-        let amazdata = amaz(string);
-        await amazdata.then(data=>{
-            data.forEach(d=>Data.push(d));
-        }).catch(err=>{
-            console.log("Error occured in amazon data "+ err)
-        })
-        
-    })();
-
-    (async()=>{
-        let flipdata = flip(string);
-        await flipdata.then(data=>{
-            data.forEach(d=> Data.push(d));
-        }).catch(err=>{
-            console.log("Error occured in flipkart data " + err)
-            // res.redirect('/');
-        })
+    let amazdata = amaz(string);
+    amazdata.then(data=>{
+        data.forEach(d=>Data.push(d));
+    }).catch(err=>{
+        console.log(chalk.bgRedBright("Error occured in amazon data "+ err))
+    })
+    let flipdata = flip(string);
+    flipdata.then(data=>{
+        data.forEach(d=> Data.push(d));
+        console.log(data)
+    }).catch(err=>{
+        console.log(chalk.bgRedBright("Error occured in flipkart data " + err))
+    })
+    Promise.all([amazdata,flipdata]).then(()=>{
         let newdata= sort(Data);
-        // console.log(newdata)
         let end = new Date();
-        // console.log(newdata);
         console.log(`Total time taken is ${end.getTime()-start.getTime()} ms`);
         res.render('index',{data: newdata});
-    })();
+    }).catch(err=>{
+        let end = new Date();
+        console.log(`Total time taken is ${end.getTime()-start.getTime()} ms`);
+        console.log(chalk.bgRedBright("Error in Promise.all "+err))
+        res.render('index',{data: Data});
+    })
+    
 })
 
 app.post('/search',(req,res)=>{

@@ -3,28 +3,34 @@ let flip = require('./scrap/flipkart');
 
 let start = new Date();
 let Data=[],newdata;
-var string = "Harry Potter";
+var string = "iphone";
 
 ///////Data from Amazon/////////
-(async()=>{
+// (async()=>{
     let amazdata = amaz(string);
-    await amazdata.then(data=>{
+    amazdata.then(data=>{
+        console.log(data); 
         data.forEach(d=>Data.push(d));
     })
-})();
+    .catch((err)=>console.log("error with amazon data"+ err))
+// })();
 
 ///////Data from flipkart////////
-(async()=>{
+// (async()=>{
     let flipdata = flip(string);
-    await flipdata.then(data=>{
+    flipdata.then(data=>{
+        console.log(data);
         data.forEach(d=> Data.push(d));
     })
-    newdata= sort(Data);
-    console.log(newdata)
+    .catch((err)=>console.log("error with flipkart data"+ err))
+    // newdata= sort(Data);
+    // console.log("Data is "+Data);
     let end = new Date();
     console.log(`Total time taken is ${end.getTime()-start.getTime()} ms`)
-})();
+// })();
 
+    Promise.all([amazdata,flipdata]).then(()=>Data.forEach((d)=>console.log(d.owner)))
+    .catch((err)=>console.log("Error in promise.all "+err))
 
 ////////Sorting function/////////
 let sort = (arr)=>{

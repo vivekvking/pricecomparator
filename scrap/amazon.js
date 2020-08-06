@@ -28,7 +28,10 @@ let Try = async (search)=>{
                 img = item.querySelector('img.s-image').getAttribute('src');
                 if(item.querySelector('span.a-size-medium')){
                     title = item.querySelector('span.a-size-medium').textContent;
-                }               
+                }else if(item.querySelector('span.a-size-base-plus')){
+                    title = item.querySelector('span.a-size-base-plus').textContent;   
+                }
+
                 if(item.querySelector('span.a-text-bold')){
                     deliverby = item.querySelector('span.a-text-bold').textContent;
                 }     
