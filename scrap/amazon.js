@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-
+const chalk = require('chalk');
 
 let Try = async (search)=>{
     let start = new Date();
@@ -59,7 +59,7 @@ let Try = async (search)=>{
     });
     await browser.close();
     let end = new Date();
-    console.log(`Total time taken is ${end.getTime()-start.getTime()} ms by amazon`)
+    console.log(chalk.bgYellow(`Total time taken by amazon is ${end.getTime()-start.getTime()} ms`));
     // console.log(data)
     return data;
 };

@@ -48,7 +48,6 @@ app.get('/search/:book_name',(req,res)=>{
     let flipdata = flip(string);
     flipdata.then(data=>{
         data.forEach(d=> Data.push(d));
-        console.log(data)
     }).catch(err=>{
         console.log(chalk.bgRedBright("Error occured in flipkart data " + err))
     })
@@ -59,7 +58,7 @@ app.get('/search/:book_name',(req,res)=>{
         res.render('index',{data: newdata});
     }).catch(err=>{
         let end = new Date();
-        console.log(`Total time taken is ${end.getTime()-start.getTime()} ms`);
+        console.log(chalk.bgYellow(`Total time taken is ${end.getTime()-start.getTime()} ms`));
         console.log(chalk.bgRedBright("Error in Promise.all "+err))
         res.render('index',{data: Data});
     })
