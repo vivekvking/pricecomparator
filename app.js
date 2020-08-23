@@ -4,8 +4,19 @@ const ejs = require('ejs')
 const amaz = require('./scrap/amazon')
 const flip = require('./scrap/flipkart'); 
 const bodyParser = require('body-parser');
-const chalk = require('chalk')
-// const newdata= require('./data')
+const chalk = require('chalk');
+const requestIp= require('request-ip');
+
+// app.use(requestIp.mw());
+// app.use((req,res)=>{
+//     const ip = req.clientIp;
+//     res.end(ip);
+// })
+let clientIp
+const ipMiddleware = function(req, res, next) {
+    clientIp = requestIp.getClientIp(req); 
+    next();
+};
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine","ejs");
@@ -26,7 +37,7 @@ let sort = (arr)=>{
     return arr;
 }
 
-app.get('/',(req,res)=>{
+app.get('/',ipMiddleware,(req,res)=>{
     res.render('home');
 })
 
@@ -35,7 +46,7 @@ app.post('/',(req,res)=>{
     res.redirect(`/search/${string}`)
 })
 
-app.get('/search/:book_name',(req,res)=>{
+app.get('/search/:book_name',ipMiddleware,(req,res)=>{
     let string = req.params.book_name;
     let start = new Date();
     var Data = [];
@@ -55,6 +66,7 @@ app.get('/search/:book_name',(req,res)=>{
         let newdata= sort(Data);
         let end = new Date();
         console.log(`Total time taken is ${end.getTime()-start.getTime()} ms`);
+        console.log(clientIp);//IP address of the client
         res.render('index',{data: newdata});
     }).catch(err=>{
         let end = new Date();
