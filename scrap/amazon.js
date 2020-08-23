@@ -59,7 +59,7 @@ let Try = async (search)=>{
     });
     await browser.close();
     let end = new Date();
-    console.log(chalk.bgYellow(`Total time taken by amazon is ${end.getTime()-start.getTime()} ms`));
+    console.log(chalk.yellow(`Total time taken by amazon is ${end.getTime()-start.getTime()} ms`));
     // console.log(data)
     return data;
 };

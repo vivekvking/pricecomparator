@@ -58,7 +58,7 @@ app.get('/search/:book_name',(req,res)=>{
         res.render('index',{data: newdata});
     }).catch(err=>{
         let end = new Date();
-        console.log(chalk.bgYellow(`Total time taken is ${end.getTime()-start.getTime()} ms`));
+        console.log(chalk.yellow(`Total time taken is ${end.getTime()-start.getTime()} ms`));
         console.log(chalk.bgRedBright("Error in Promise.all "+err))
         res.render('index',{data: Data});
     })

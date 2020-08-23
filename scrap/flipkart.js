@@ -30,6 +30,8 @@ let Try = async (string)=>{
                         href = `https://www.flipkart.com${item.querySelector('a.Zhf2z-').getAttribute('href')}`;
                     }else if(item.querySelector('a._3dqZjq')){
                         href = `https://www.flipkart.com${item.querySelector('a._3dqZjq').getAttribute('href')}`;
+                    }else if(item.querySelector('a._31qSD5')){
+                        href = `https://www.flipkart.com${item.querySelector('a._31qSD5').getAttribute('href')}`;
                     }
                     if(item.querySelector('img._1Nyybr')){
                         img = item.querySelector('img._1Nyybr').getAttribute('src');
@@ -71,7 +73,7 @@ let Try = async (string)=>{
     });
     await browser.close();
     let end = new Date();
-    console.log(chalk.bgYellow(`Total time taken by flipkart is ${end.getTime()-start.getTime()}`))
+    console.log(chalk.yellow(`Total time taken by flipkart is ${end.getTime()-start.getTime()}`))
     return data;
 };
 
