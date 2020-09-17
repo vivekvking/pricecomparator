@@ -16,6 +16,11 @@ let Try = async (string)=>{
         height: 1080
     })
     await page.goto(url,{waitUntil: "networkidle0"});
+    await page.mouse.wheel({deltaY:1000});
+    await page.mouse.wheel({deltaY:1000});
+    await page.mouse.wheel({deltaY:1000});
+    await page.mouse.wheel({deltaY:1000});
+    await page.waitFor(500);
     data = await page.evaluate(()=> {
         let columns = document.querySelectorAll('._3O0U0u');
         let data=[];
@@ -23,7 +28,7 @@ let Try = async (string)=>{
         columns.forEach(column=>{
             let items = column.querySelectorAll('._3O0U0u > div');
             items.forEach(item=>{
-                if(loop<12){
+                if(loop<16){
                     let data_id='',href='',img='',title='',full_title='',price='',rating='',no_of_rating='',language='',owner='flipkart';
                     data_id = item.getAttribute('data-id');
                     if(item.querySelector('a.Zhf2z-')){
@@ -73,8 +78,10 @@ let Try = async (string)=>{
     });
     await browser.close();
     let end = new Date();
-    console.log(chalk.yellow(`Total time taken by flipkart is ${end.getTime()-start.getTime()}`))
+    console.log(chalk.yellow(`Total time taken by flipkart is ${end.getTime()-start.getTime()} ms`))
     return data;
 };
+
+// Try('hp omen').then(data=>console.log(data)).catch(err=>console.log(err));
 
 module.exports = Try;
